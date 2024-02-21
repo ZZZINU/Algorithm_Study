@@ -36,4 +36,3 @@ while min <= max:
     
 # 랜선의 최대 길이 출력
 print(max)
-
