@@ -1,15 +1,16 @@
 from collections import defaultdict
 
 def solution(tickets):
-    graph = defaultdict(list)
+    answer = []
     
+    graph = defaultdict(list)
     for (start, end) in tickets:
         graph[start].append(end)
-        
+    
+    print(graph)
+    
     for airport in graph:
         graph[airport].sort(reverse=True)
-        
-    print(graph)  
     
     path = []
     stack = ["ICN"]
@@ -21,5 +22,5 @@ def solution(tickets):
         else:
             next_route = graph[route].pop()
             stack.append(next_route)
+        
     return path[::-1]
-    
