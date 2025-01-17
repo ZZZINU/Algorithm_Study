@@ -1,9 +1,18 @@
-from collections import Counter
-
 def solution(participant, completion):
-    participant_counter = Counter(participant)
-    completion_counter = Counter(completion)
+    answer = ''
+    roster = {}
+    for person in participant:
+        if person not in roster:
+            roster[person] = 1
+        else:
+            roster[person] += 1
     
-    for person in participant_counter:
-        if participant_counter[person] != completion_counter[person]:
-            return person
+    for person in completion:
+        roster[person] -= 1
+    
+    for person in roster:
+        if roster[person] != 0:
+            answer += person
+    
+    
+    return answer
