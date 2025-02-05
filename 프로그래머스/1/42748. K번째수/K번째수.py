@@ -7,5 +7,4 @@ def solution(array, commands):
         temp.sort()
         answer.append(temp[idx-1])
 
-
     return answer
