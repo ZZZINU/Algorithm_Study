@@ -4,7 +4,8 @@ def solution(bridge_length, weight, truck_weights):
     time = 0
     bridge = deque([0] * bridge_length)
     truck_weights = deque(truck_weights)
-    
+
+    # print("bridge", bridge)
     
     now_weight = 0
     while truck_weights :
@@ -16,6 +17,7 @@ def solution(bridge_length, weight, truck_weights):
             bridge.append(truck_weights.popleft())
         else:
             bridge.append(0)
+        # print(bridge)
             
     time += bridge_length
     return time
