@@ -3,4 +3,3 @@ from ANIMAL_OUTS as O
 left outer join ANIMAL_INS as I on I.ANIMAL_ID = O.ANIMAL_ID
 where I.ANIMAL_ID is NULL
 order by O.ANIMAL_ID
-
