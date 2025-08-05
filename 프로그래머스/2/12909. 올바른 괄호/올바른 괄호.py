@@ -1,16 +1,15 @@
-def solution(s):
-    answer = True
+def solution(string):
     stack = []
-    
-    for item in s:
-        if item == '(':
-            stack.append('(')
-        elif item == ')' and stack:
-            stack.pop()
+    for text in string:
+        if text == "(":
+            stack.append(text)
         else:
-            return False
-    
+            if stack:
+                stack.pop()
+            else:
+                return False
+
     if stack:
         return False
-
-    return True
+    else:
+        return True
