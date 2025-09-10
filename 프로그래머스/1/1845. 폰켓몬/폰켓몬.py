@@ -1,8 +1,16 @@
 def solution(nums):
-    n = len(nums) / 2
-    nums_set = set(nums)
-    print(nums_set)
-    if len(nums_set) >= n:
-        return n
+    answer = 0
+    count = len(nums) / 2
+    num_set = set(nums)
+    
+    if count <= len(num_set):
+        return count
     else:
-        return len(nums_set)
+        return len(num_set)
+    
+    
+
+        
+    
+    
+    return answer
