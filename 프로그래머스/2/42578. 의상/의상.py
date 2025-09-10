@@ -1,18 +1,21 @@
 def solution(clothes):
     
-    clothes_sort = {}
-    for i in range(len(clothes)):
-        if clothes[i][1] in clothes_sort:
-            clothes_sort[clothes[i][1]].append(clothes[i][0])
+    hash_map = {}
+    for cloth in clothes:
+        cloth_name, cloth_type = cloth
+        if cloth_type in hash_map:
+            hash_map[cloth_type].append(cloth_name)
         else:
-            clothes_sort[clothes[i][1]] = [clothes[i][0]]
+            hash_map[cloth_type] = [cloth_name]
+            
+    if len(hash_map) == 1:
+        return len(clothes)
     
     answer = 1
-    for key, value in clothes_sort.items():
-        answer *= (len(value) + 1)
-
-    answer -= 1
+    for key in hash_map:
+        answer *= (len(hash_map[key]) + 1)
+    
 
         
-    
-    return answer
+        
+    return answer - 1
