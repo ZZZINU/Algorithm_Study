@@ -1,13 +1,23 @@
 import heapq
 def solution(scoville, K):
-    heapq.heapify(scoville)
     answer = 0
-
-    while scoville[0] < K:
-        mix = heapq.heappop(scoville) + (heapq.heappop(scoville) * 2)
-        heapq.heappush(scoville, mix)
-        answer += 1
-        if len(scoville) == 1 and scoville[0] < K:
-            return -1
+    heap = []
+    for one in scoville:
+        heapq.heappush(heap, one)
     
-    return answer
+    while len(heap) > 1:
+        one = heapq.heappop(heap)
+        
+        if one >= K:
+            return answer
+        
+        two = heapq.heappop(heap)
+        new = one + (two * 2)
+        answer += 1
+        heapq.heappush(heap, new)
+    
+    if heapq.heappop(heap) >= K:
+        return answer
+    
+    
+    return -1
