@@ -1,18 +1,25 @@
 def solution(sequence, k):
-    answer = []
     n = len(sequence)
     
-    start, end = 0, 0
+    left = 0
+    curr = 0
     
-    for i in range(n):
-        while start < k and end < n:
-            start += sequence[end]
-            end += 1
-        if start == k:
-            answer.append((i, end-1))
-   
-        start -= sequence[i]
+    best_len = float('inf')
+    best = [0, 0]
+    
+    for right in range(n):
+        curr += sequence[right]
         
-    answer = sorted(answer, key=lambda x:x[1]-x[0])[0]
+        while curr >= k and left <= right:
+            if curr == k:
+                length = right - left + 1
+                if length < best_len or (length == best_len and left < best[0]):
+                    best_len = length
+                    best = [left, right]
+            
+            curr -= sequence[left]
+            left += 1
     
-    return answer
+    
+    
+    return best
