@@ -1,17 +1,24 @@
 def solution(n, computers):
     answer = 0
-    visited = [False for i in range(n)]
     
-    for com in range(n):
-        if visited[com] == False:
-            DFS(n, computers, com, visited)
-            answer += 1
-            
+    visited = [False] * n
+    
+    for s in range(n):
+        if visited[s]:
+            continue
+        answer += 1
+        stack = [s]
+        visited[s] = True
+        
+        while stack:
+            i = stack.pop()
+            for j in range(n):
+                if computers[i][j] == 1 and not visited[j]:
+                    stack.append(j)
+                    visited[j] = True
+    
+    
+
+    
+    
     return answer
-            
-def DFS(n, computers, com, visited):
-    visited[com] = True
-    for connect in range(n):
-        if connect != com and computers[com][connect] ==1:
-            if visited[connect] == False:
-                DFS(n, computers, connect, visited)
