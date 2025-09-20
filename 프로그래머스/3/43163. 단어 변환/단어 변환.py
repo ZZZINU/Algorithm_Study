@@ -1,27 +1,34 @@
 from collections import deque
 
-def solution(begin, target, words):
-    if target not in words:
-        answer = 0
-    else:
-        queue = deque()
-        queue.append([begin, 0])
+def differ_by_one(a, b):
+    diff = 0
+    for x, y in zip(a, b):
+        if x != y:
+            diff +=1
+        if diff > 1:
+            return False
+    
+    return diff == 1
         
-        while queue:
-            now, step = queue.popleft()
-            
-            if now == target:
-                answer = step
-                return answer
-            
-            for word in words:
-                count = 0
-                for i in range(len(now)):
-                    if now[i] != word[i]:
-                        count += 1
-                    
-                if count == 1:
-                    queue.append([word, step + 1])
-                    
+
+def solution(begin, target, words):
+    answer = 0
+    if target not in words:
+        return 0
+    
+    q = deque()
+    q.append((begin, 0)) # 현재 단어, 단계수
+    visited = set([begin])
+    
+    while q:
+        cur, step = q.popleft()
+        if cur == target:
+            return step
+        
+        for w in words:
+            if w not in visited and differ_by_one(cur, w):
+                visited.add(w)
+                q.append((w, step+1))
+    
     
     return answer
