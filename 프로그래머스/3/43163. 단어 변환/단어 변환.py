@@ -1,34 +1,33 @@
 from collections import deque
-
-def differ_by_one(a, b):
-    diff = 0
-    for x, y in zip(a, b):
-        if x != y:
-            diff +=1
-        if diff > 1:
-            return False
-    
-    return diff == 1
-        
-
 def solution(begin, target, words):
     answer = 0
-    if target not in words:
-        return 0
     
-    q = deque()
-    q.append((begin, 0)) # 현재 단어, 단계수
+    def can_change(word1, word2):
+        count = 0
+        for i in range(len(word1)):
+            if count >= 2:
+                return False
+            
+            if word1[i] != word2[i]:
+                count += 1
+                
+        if count == 1:
+            return True
+        else:
+            return False
+    
+    q = deque([(begin, 0)])
     visited = set([begin])
     
     while q:
-        cur, step = q.popleft()
-        if cur == target:
-            return step
+        now, dist = q.popleft()
+        if now == target:
+            return dist
         
-        for w in words:
-            if w not in visited and differ_by_one(cur, w):
-                visited.add(w)
-                q.append((w, step+1))
+        for word in words:
+            if word not in visited and can_change(word, now):
+                visited.add(word)
+                q.append((word, dist+1))
     
     
     return answer
