@@ -1,24 +1,37 @@
+from collections import defaultdict
 def solution(n, computers):
     answer = 0
+    tree = defaultdict(list)
+    # 연결먼저
+    for i in range(1, n+1):
+        for j in range(1, n+1):
+            if i == j:
+                continue
+            
+            if computers[i-1][j-1] == 1:
+                tree[i].append(j)
     
     visited = [False] * n
     
-    for s in range(n):
-        if visited[s]:
+    for i in range(1, n+1):
+        
+        if visited[i-1]:
             continue
-        answer += 1
-        stack = [s]
-        visited[s] = True
+        
+        stack = [i]
+        visited[i-1] = True
         
         while stack:
-            i = stack.pop()
-            for j in range(n):
-                if computers[i][j] == 1 and not visited[j]:
-                    stack.append(j)
-                    visited[j] = True
-    
-    
-
-    
+            node = stack.pop()
+            if node in tree:
+                for item in tree[node]:
+                    if not visited[item-1]:
+                        stack.append(item)
+                        visited[item-1] = True
+        
+        answer += 1
+        
+            
+        
     
     return answer
