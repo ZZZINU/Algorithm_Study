@@ -1,9 +1,20 @@
 def solution(triangle):
     answer = 0
-    floor = len(triangle) - 1
-    while floor > 0:
-        for i in range(floor):
-            triangle[floor-1][i] += max(triangle[floor][i], triangle[floor][i+1])
-        floor -= 1
-    answer = triangle[0][0]
-    return answer
+    dp = triangle[0][:]
+    print(dp)
+    for i in range(1, len(triangle)):
+        row = triangle[i]
+        new = [0] * (i+1)
+        
+        # 양끝
+        new[0] = row[0] + dp[0]
+        new[i] = row[-1] + dp[-1]
+        
+        for j in range(1, i):
+            new[j] = row[j] + max(dp[j-1], dp[j])
+        
+        dp = new
+        
+        
+        
+    return max(dp)
