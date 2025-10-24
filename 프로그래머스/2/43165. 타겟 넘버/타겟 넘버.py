@@ -1,20 +1,20 @@
 answer = 0
-def DFS(numbers, target, step, value):
+
+def dfs(total, step, n, numbers, target):
     global answer
-    if len(numbers) == step:
-        if value == target:
+    if n == step:
+        if total == target:
             answer += 1
-            return 
-        else:
             return
-        
-        
-    
-    DFS(numbers, target, step+1, value+numbers[step])
-    DFS(numbers, target, step+1, value-numbers[step])
+        else:
+            return 
+
+    dfs(total+numbers[step], step+1, n, numbers, target)
+    dfs(total-numbers[step], step+1, n, numbers, target)
 
 def solution(numbers, target):
     global answer
-    DFS(numbers, target, 0, 0)
+    n = len(numbers)
+    dfs(0, 0, n, numbers, target)
     
     return answer
