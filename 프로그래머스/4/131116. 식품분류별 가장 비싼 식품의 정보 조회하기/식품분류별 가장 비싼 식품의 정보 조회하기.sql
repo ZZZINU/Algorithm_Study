@@ -1,12 +1,10 @@
 -- 코드를 입력하세요
-WITH product AS  (
-SELECT CATEGORY, PRICE, ROW_NUMBER() OVER(
-PARTITION BY CATEGORY
-ORDER BY PRICE DESC
-) AS rank_number, PRODUCT_NAME
-FROM FOOD_PRODUCT )
+with my_sql as (SELECT CATEGORY, price, PRODUCT_NAME, 
+ROW_NUMBER() over (partition by CATEGORY order by price desc) as ranked_category
+FROM FOOD_PRODUCT)
 
-SELECT CATEGORY, PRICE, PRODUCT_NAME
-FROM product
-WHERE CATEGORY IN ('과자', '국', '김치', '식용유') AND rank_number = 1
-ORDER BY PRICE DESC
+select CATEGORY, price, PRODUCT_NAME
+from my_sql
+where ranked_category = 1 and CATEGORY IN ('과자', '국', '김치', '식용유')
+order by price desc
+
