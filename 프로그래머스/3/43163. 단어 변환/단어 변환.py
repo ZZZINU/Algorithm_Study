@@ -1,33 +1,35 @@
 from collections import deque
 def solution(begin, target, words):
-    answer = 0
     
-    def can_change(word1, word2):
+    def diff(a, b):
         count = 0
-        for i in range(len(word1)):
-            if count >= 2:
-                return False
-            
-            if word1[i] != word2[i]:
+        for i in range(len(a)):
+            if a[i] != b[i]:
                 count += 1
-                
-        if count == 1:
-            return True
+            
+            if count > 1:
+                return False
         else:
-            return False
+            return True
+
+
     
     q = deque([(begin, 0)])
-    visited = set([begin])
+    visited = []
     
     while q:
-        now, dist = q.popleft()
-        if now == target:
-            return dist
+        word, step = q.popleft()
+        if word == target:
+            return step
+
         
-        for word in words:
-            if word not in visited and can_change(word, now):
-                visited.add(word)
-                q.append((word, dist+1))
-    
-    
-    return answer
+        for w in words:
+
+            if w not in visited and diff(w, word):
+     
+                q.append((w, step+1))
+                visited.append(w)
+            
+                
+
+    return 0
